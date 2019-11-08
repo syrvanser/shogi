@@ -1,0 +1,4 @@
+rendering delay?
+how data should be retreived - node then sent to the app?
+single page routing?
+autocomplete?

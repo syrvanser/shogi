@@ -1,0 +1,26 @@
+#player-forms {
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+}
+
+.player-form {
+    border: 2px solid transparent;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+    padding: 10px;
+    font-size: 1rem;
+    margin: 0 15px;
+    border: 2px solid rgba(148, 146, 141, 0.322);
+}
+
+.form-name,
+.form-surname {
+    width: 40%;
+}
+
+.form-elo,
+.form-grade {
+    width: 20%;
+}
+

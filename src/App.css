@@ -1,22 +1,43 @@
-.App {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, 
+body {
+    height: 100%;
+}
+
+body {
   text-align: center;
+  font: 1rem Arial; 
+  background-color: aliceblue;
 }
 
-.App-logo {
-  height: 40vmin;
+.control-button {
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  background-color: #008CBA;
+  color: white; 
+  border-radius: 8px;
+  border: 2px solid #008CBA;
+  transition:box-shadow 0s;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.control-button:focus{
+  outline: none;
+  box-shadow: 0 0 0 2pt rgba(218, 165, 32, 0.80);
 }
 
-.App-link {
-  color: #09d3ac;
+.control-button:hover {
+  background-color: white; 
+  color: black;
 }
+
