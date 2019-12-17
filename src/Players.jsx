@@ -6,28 +6,43 @@ class Players extends React.Component {
   constructor() {
     super();
     this.state = {
-      count: 1
+      players: []
     }
+    this.addPlayer = this.addPlayer.bind(this);
   }
 
-  addPlayer = () => {
-    this.setState({ count: this.state.count + 1 });
+  addPlayer(player, id) {
+
+    const players = this.state.players;
+    this.setState(state => {
+      const index = state.players.findIndex((e) => e.id === id);
+      if (index === -1) {
+        state.players.push(player);
+
+    } else {
+        state.players[index] = player;
+    }
+    console.log(players);
+      return { players }
+    })
+  }
+
+  handleClick(e) {
+    e.preventDefault();
+    console.log(this.state.players);
   }
 
   render() {
 
-    const players = [];
-    for (let i = 0; i < this.state.count; i++) {
-      players.push(<PlayerForm key={'player' + i}/>);
-    }
-
     return (
       <div>
-        <div id="forms">
-          {players}
+        <div id="players">
+          {this.state.components}
         </div>
         <div id="buttons">
-          <button className="control-button" onClick={this.addPlayer}>Add</button>
+          {this.state.players.map((player, i) => <PlayerForm data={player} key={'player' + i} callback={this.addPlayer} id={i} isLast={false} />)}
+          {<PlayerForm data={null} key={'player' + this.state.players.length} callback={this.addPlayer} id={this.state.players.length} isLast={true}/>}
+          <button className="control-button" onClick={this.handleClick.bind(this)}>Submit</button>
         </div>
       </div>
     );

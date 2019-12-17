@@ -1,6 +1,7 @@
 #player-forms {
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     padding: 10px;
 }
 
@@ -24,3 +25,10 @@
     width: 20%;
 }
 
+.delete{
+    cursor:pointer;
+}
+
+.hide{
+    visibility: hidden;
+}
