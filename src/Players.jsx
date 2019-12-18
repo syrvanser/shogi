@@ -10,11 +10,14 @@ class Players extends React.Component {
     this.state = {
       players: [{name: '',
       elo: '',
-      grade: ''}]
+      grade: ''}],
+      fesaPlayers: []
     }
     this.update = this.update.bind(this);
     this.setPlayers = this.setPlayers.bind(this);
   }
+
+
 
   update(type, player, index) {
        
@@ -34,10 +37,14 @@ class Players extends React.Component {
 
   setPlayers(event, fesaPlayers){
     console.log(fesaPlayers);
+    this.setState(state => {
+      state.fesaPlayers = fesaPlayers;
+    });
   }
 
   componentDidMount() {
     ipcRenderer.send('window-ready')
+    console.log("yay")
     ipcRenderer.on('fesa-players', this.setPlayers)
   }
  
@@ -58,7 +65,7 @@ class Players extends React.Component {
           {this.state.components}
         </div>
         <div id="buttons">
-          {this.state.players.map((player, i) => <PlayerForm data={player} key={'player' + i} callback={this.update} id={i} last={i===this.state.players.length-1}/>)}
+          {this.state.players.map((player, i) => <PlayerForm fesaPlayers ={this.state.fesaPlayers} data={player} key={'player' + i} callback={this.update} id={i} last={i===this.state.players.length-1}/>)}
           <button className="control-button" onClick={this.handleClick.bind(this)}>Submit</button>
         </div>
       </div>
