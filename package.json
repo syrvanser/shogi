@@ -17,9 +17,11 @@
   "homepage": "./",
   "private": true,
   "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
     "cross-env": "^6.0.3",
     "electron-is-dev": "^1.1.0",
     "react": "^16.11.0",
+    "react-autosuggest": "^9.4.3",
     "react-dom": "^16.11.0",
     "react-scripts": "3.2.0"
   },

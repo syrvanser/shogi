@@ -1,30 +1,48 @@
 import React from 'react';
 import './Players.css';
 import PlayerForm from './PlayerForm';
+const ipcRenderer =  window.require('electron').ipcRenderer;
+
 
 class Players extends React.Component {
   constructor() {
     super();
     this.state = {
-      players: []
+      players: [{name: '',
+      elo: '',
+      grade: ''}]
     }
-    this.addPlayer = this.addPlayer.bind(this);
+    this.update = this.update.bind(this);
+    this.setPlayers = this.setPlayers.bind(this);
   }
 
-  addPlayer(player, id) {
-
-    const players = this.state.players;
+  update(type, player, index) {
+       
     this.setState(state => {
-      const index = state.players.findIndex((e) => e.id === id);
-      if (index === -1) {
+      const players = this.state.players;
+      if (type === 'add') {
         state.players.push(player);
-
-    } else {
-        state.players[index] = player;
-    }
-    console.log(players);
-      return { players }
+      } else if(type === 'update') {
+          state.players[index] = player;
+      } else if (type === 'remove'){
+        state.players.splice(index, 1);
+      }
+      console.log(players);
+        return { players }
     })
+  }
+
+  setPlayers(event, fesaPlayers){
+    console.log(fesaPlayers);
+  }
+
+  componentDidMount() {
+    ipcRenderer.send('window-ready')
+    ipcRenderer.on('fesa-players', this.setPlayers)
+  }
+ 
+  componentWillUnmount() {
+    ipcRenderer.removeListener('fesa-players', this.setPlayers)
   }
 
   handleClick(e) {
@@ -40,8 +58,7 @@ class Players extends React.Component {
           {this.state.components}
         </div>
         <div id="buttons">
-          {this.state.players.map((player, i) => <PlayerForm data={player} key={'player' + i} callback={this.addPlayer} id={i} isLast={false} />)}
-          {<PlayerForm data={null} key={'player' + this.state.players.length} callback={this.addPlayer} id={this.state.players.length} isLast={true}/>}
+          {this.state.players.map((player, i) => <PlayerForm data={player} key={'player' + i} callback={this.update} id={i} last={i===this.state.players.length-1}/>)}
           <button className="control-button" onClick={this.handleClick.bind(this)}>Submit</button>
         </div>
       </div>
