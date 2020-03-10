@@ -24,13 +24,13 @@ function createWindow() {
     );
 
 
-    //if (isDev) {
+    if (isDev) {
         mainWindow.webContents.openDevTools()
         //installExtension(REACT_DEVELOPER_TOOLS)
         //.then((name) => console.log(`Added Extension:  ${name}`))
         //.catch((err) => console.log('An error occurred: ', err));
 
-    //}
+    }
     mainWindow.on('closed', () => (mainWindow = null));
 
 }
@@ -48,7 +48,7 @@ app.on('activate', () => {
     }
 });
 
-const fesaPlayers = [];
+let fesaPlayers = [];
 const cheerio = require('cheerio');
 const request = require('request');
 request({
@@ -76,8 +76,13 @@ request({
             }
         });
 
-
+    } else if (fs.existsSync('data.json')) {
+        console.log("Can't reach FESA, using a local copy");
+        fesaPlayers = JSON.parse(fs.readFileSync('data.json', 'utf-8')).players;
+    } else {
+        console.log("No local copy available");
     }
+    
 
     if (fesaPlayers.length !== 0) {
         let data = { timestamp: new Date(), players: fesaPlayers };

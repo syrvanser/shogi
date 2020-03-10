@@ -30,13 +30,11 @@ class Players extends React.Component {
       } else if (type === 'remove'){
         state.players.splice(index, 1);
       }
-      console.log(players);
         return { players }
     })
   }
 
   setPlayers(event, fesaPlayers){
-    console.log(fesaPlayers);
     this.setState(state => {
       state.fesaPlayers = fesaPlayers;
     });
@@ -44,7 +42,6 @@ class Players extends React.Component {
 
   componentDidMount() {
     ipcRenderer.send('window-ready')
-    console.log("yay")
     ipcRenderer.on('fesa-players', this.setPlayers)
   }
  
@@ -55,6 +52,8 @@ class Players extends React.Component {
   handleClick(e) {
     e.preventDefault();
     console.log(this.state.players);
+    //add validation to each name (and mb other fields)
+    this.props.onSubmit(this.state.players);
   }
 
   render() {
